@@ -1,0 +1,83 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+env/
+venv/
+ENV/
+env.bak/
+.venv/
+
+# Configuration files
+*.env
+*.ini
+*.config
+
+# Logs
+*.log
+*.out
+*.err
+
+# SQLite database files
+*.sqlite3
+
+# MacOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Python egg files
+*.egg
+*.egg-info/
+dist/
+build/
+*.wheel
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# Coverage and testing
+.coverage
+.tox/
+.nox/
+*.cover
+*.coverage.*
+htmlcov/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Compiled C extensions
+*.so
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.old
+*.backup
+
+# Excel and other exported files
+*.xlsx
+*.xls
+*.csv
+
+# MySQL dump files
+*.sql
+
+# Other backups
+*.~*
+*.bak
+
+# Cache files
+*.cache

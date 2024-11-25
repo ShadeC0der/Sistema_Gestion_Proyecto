@@ -1,0 +1,7 @@
+# Ejecuta " pip install -r requirements.txt " para descargar estas dependencias
+
+mysql-connector-python==9.1.0  # Conexión con MySQL
+pandas==2.2.3                  # Manipulación de datos
+openpyxl==3.1.5                # Manejo de archivos Excel
+python-dotenv==1.0.1           # Variables de entorno
+colorama
