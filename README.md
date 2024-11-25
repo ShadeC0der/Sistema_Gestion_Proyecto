@@ -24,3 +24,15 @@ Además, instala las dependencias del proyecto utilizando el archivo `requiremen
 ```bash
 pip install -r requirements.txt
 ```
+
+## Estructura del archivo .env
+
+Crea un archivo .env en el directorio raíz del proyecto con la siguiente estructura para configurar la conexión a la base de datos:
+
+```
+DB_USER=root              # Usuario de MySQL
+DB_PASSWORD=              # Contraseña del usuario
+DB_HOST=localhost         # Host de la base de datos
+DB_NAME=gestionproyectos  # Nombre de la base de datos
+DB_PORT=3306              # Puerto de MySQL (por defecto es 3306)
+```
