@@ -33,15 +33,23 @@ class EmpleadoController:
         try:
             with self.conectar() as connection:
                 with connection.cursor() as cursor:
-                    # pylint: disable=line-too-long
-                    query = ("INSERT INTO empleado (rut, nombre, direccion, telefono, email, fecha_inicio, salario, departamento_id) "
-                             "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)")
-                    cursor.execute(query, (empleado.rut, empleado.nombre, empleado.direccion,
-                                           empleado.telefono, empleado.email, empleado.fecha_inicio,
-                                           empleado.salario, empleado.departamento_id))
+                    query = """
+                        INSERT INTO empleado 
+                        (rut, nombre, direccion, telefono, email, fecha_inicio, salario, departamento_id) 
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                    """
+                    cursor.execute(query, (
+                        empleado.rut, empleado.nombre, empleado.direccion,
+                        empleado.telefono, empleado.email, empleado.fecha_inicio,
+                        empleado.salario, empleado.departamento_id
+                    ))
                     connection.commit()
+                    print("Empleado creado exitosamente.")
         except Error as e:
-            print(f"Error al crear empleado: {e}")
+            if "FOREIGN KEY" in str(e):
+                print(f"Error: El departamento con ID {empleado.departamento_id} no existe.")
+            else:
+                print(f"Error al crear empleado: {e}")
 
     def listar_empleados(self):
         """
@@ -115,7 +123,6 @@ class EmpleadoController:
         try:
             with self.conectar() as connection:
                 with connection.cursor(dictionary=True) as cursor:
-                    # Obtener los valores actuales del empleado
                     query_select = "SELECT * FROM empleado WHERE rut = %s"
                     cursor.execute(query_select, (empleado.rut,))
                     row = cursor.fetchone()
@@ -124,17 +131,14 @@ class EmpleadoController:
                         print(f"El empleado con RUT {empleado.rut} no existe.")
                         return
 
-                    # Combinar los datos existentes con los nuevos (los campos en None se conservan)
                     nombre = empleado.nombre or row["nombre"]
                     direccion = empleado.direccion or row["direccion"]
                     telefono = empleado.telefono or row["telefono"]
                     email = empleado.email or row["email"]
                     fecha_inicio = empleado.fecha_inicio or row["fecha_inicio"]
                     salario = empleado.salario if empleado.salario is not None else row["salario"]
-                    # pylint: disable=line-too-long
                     departamento_id = empleado.departamento_id if empleado.departamento_id is not None else row["departamento_id"]
 
-                    # Actualizar el empleado
                     query_update = """
                     UPDATE empleado 
                     SET nombre = %s, direccion = %s, telefono = %s, email = %s, 

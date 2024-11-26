@@ -33,13 +33,18 @@ class RegistroDeTiempoController:
         try:
             with self.conectar() as connection:
                 with connection.cursor() as cursor:
-                    # pylint: disable=line-too-long
-                    query = ("INSERT INTO registro_de_tiempo (fecha, horas_trabajadas, descripcion, empleado_id) "
-                             "VALUES (%s, %s, %s, %s)")
+                    query = """
+                    INSERT INTO registro_de_tiempo (fecha, horas_trabajadas, descripcion, empleado_id) 
+                    VALUES (%s, %s, %s, %s)
+                    """
                     cursor.execute(query, (registro.fecha, registro.horas_trabajadas, registro.descripcion, registro.empleado_id))
                     connection.commit()
+                    print(f"Registro de tiempo creado exitosamente para el empleado ID {registro.empleado_id}.")
         except Error as e:
-            print(f"Error al crear registro de tiempo: {e}")
+            if "foreign key" in str(e).lower():
+                print(f"Error: El empleado con ID {registro.empleado_id} no existe.")
+            else:
+                print(f"Error al crear registro de tiempo: {e}")
 
     def listar_registros(self):
         """
@@ -96,16 +101,11 @@ class RegistroDeTiempoController:
 
     def modificar_registro(self, registro):
         """
-        Actualiza los datos de un registro de tiempo existente. Solo se modifican
-        los campos proporcionados por el usuario, manteniendo los valores actuales para los demás.
-
-        Args:
-            registro (RegistroDeTiempo): Objeto RegistroDeTiempo con los datos a modificar.
+        Actualiza los datos de un registro de tiempo existente.
         """
         try:
             with self.conectar() as connection:
                 with connection.cursor(dictionary=True) as cursor:
-                    # Obtener los valores actuales del registro
                     query_select = "SELECT * FROM registro_de_tiempo WHERE registro_id = %s"
                     cursor.execute(query_select, (registro.registro_id,))
                     row = cursor.fetchone()
@@ -113,14 +113,12 @@ class RegistroDeTiempoController:
                     if not row:
                         print(f"El registro con ID {registro.registro_id} no existe.")
                         return
-                    # pylint: disable=line-too-long
-                    # Combinar los datos existentes con los nuevos (los campos en None se conservan)
+
                     fecha = registro.fecha or row["fecha"]
                     horas_trabajadas = registro.horas_trabajadas if registro.horas_trabajadas is not None else row["horas_trabajadas"]
                     descripcion = registro.descripcion or row["descripcion"]
                     empleado_id = registro.empleado_id if registro.empleado_id is not None else row["empleado_id"]
 
-                    # Actualizar el registro
                     query_update = """
                     UPDATE registro_de_tiempo 
                     SET fecha = %s, horas_trabajadas = %s, descripcion = %s, empleado_id = %s 

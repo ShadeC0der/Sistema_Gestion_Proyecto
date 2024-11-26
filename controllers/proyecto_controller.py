@@ -33,10 +33,10 @@ class ProyectoController:
         try:
             with self.conectar() as connection:
                 with connection.cursor() as cursor:
-                    # pylint: disable=line-too-long
                     query = "INSERT INTO proyecto (nombre, descripcion, fecha_inicio) VALUES (%s, %s, %s)"
                     cursor.execute(query, (proyecto.nombre, proyecto.descripcion, proyecto.fecha_inicio))
                     connection.commit()
+                    print(f"Proyecto '{proyecto.nombre}' creado exitosamente.")
         except Error as e:
             print(f"Error al crear proyecto: {e}")
 
@@ -95,14 +95,10 @@ class ProyectoController:
         """
         Actualiza los datos de un proyecto existente. Solo se modifican
         los campos proporcionados por el usuario, manteniendo los valores actuales para los demás.
-
-        Args:
-            proyecto (Proyecto): Objeto Proyecto con los datos a modificar.
         """
         try:
             with self.conectar() as connection:
                 with connection.cursor(dictionary=True) as cursor:
-                    # Obtener los valores actuales del proyecto
                     query_select = "SELECT * FROM proyecto WHERE proyecto_id = %s"
                     cursor.execute(query_select, (proyecto.proyecto_id,))
                     row = cursor.fetchone()
@@ -111,18 +107,15 @@ class ProyectoController:
                         print(f"El proyecto con ID {proyecto.proyecto_id} no existe.")
                         return
 
-                    # Combinar los datos existentes con los nuevos (los campos en None se conservan)
                     nombre = proyecto.nombre or row["nombre"]
                     descripcion = proyecto.descripcion or row["descripcion"]
                     fecha_inicio = proyecto.fecha_inicio or row["fecha_inicio"]
 
-                    # Actualizar el proyecto
                     query_update = """
                     UPDATE proyecto 
                     SET nombre = %s, descripcion = %s, fecha_inicio = %s 
                     WHERE proyecto_id = %s
                     """
-                    # pylint: disable=line-too-long
                     cursor.execute(query_update, (nombre, descripcion, fecha_inicio, proyecto.proyecto_id))
                     connection.commit()
                     print(f"Proyecto con ID {proyecto.proyecto_id} actualizado exitosamente.")

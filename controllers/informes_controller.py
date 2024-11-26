@@ -21,26 +21,28 @@ class InformesController:
         self.proyecto_controller = ProyectoController()
         self.registro_tiempo_controller = RegistroDeTiempoController()
 
-    def generar_informe_empleados(self):
+    def generar_informe_empleados(self, archivo: str):
         """
         Genera un informe de empleados en formato Excel.
+        Args:
+            archivo (str): Ruta del archivo donde se guardará el informe.
         """
         empleados = self.empleado_controller.listar_empleados()
         if not empleados:
             print("No hay empleados disponibles para generar el informe.")
             return
 
-        # Convertir objetos a diccionarios
         empleados_dict = [empleado.__dict__ for empleado in empleados]
         df = pd.DataFrame(empleados_dict)
         df.columns = ['ID', 'RUT', 'Nombre', 'Dirección', 'Teléfono', 'Email',
-                      'Fecha Inicio', 'Salario', 'Departamento ID'] 
-        df.to_excel('informe_empleados.xlsx', index=False)
-        print("Informe de empleados generado exitosamente en 'informe_empleados.xlsx'.")
+                      'Fecha Inicio', 'Salario', 'Departamento ID']
+        df.to_excel(archivo, index=False)
 
-    def generar_informe_departamentos(self):
+    def generar_informe_departamentos(self, archivo: str):
         """
         Genera un informe de departamentos en formato Excel.
+        Args:
+            archivo (str): Ruta del archivo donde se guardará el informe.
         """
         departamentos = self.departamento_controller.listar_departamentos()
         if not departamentos:
@@ -50,12 +52,13 @@ class InformesController:
         departamentos_dict = [departamento.__dict__ for departamento in departamentos]
         df = pd.DataFrame(departamentos_dict)
         df.columns = ['ID', 'Nombre', 'Gerente ID']
-        df.to_excel('informe_departamentos.xlsx', index=False)
-        print("Informe de departamentos generado exitosamente en 'informe_departamentos.xlsx'.")
+        df.to_excel(archivo, index=False)
 
-    def generar_informe_proyectos(self):
+    def generar_informe_proyectos(self, archivo: str):
         """
         Genera un informe de proyectos en formato Excel.
+        Args:
+            archivo (str): Ruta del archivo donde se guardará el informe.
         """
         proyectos = self.proyecto_controller.listar_proyectos()
         if not proyectos:
@@ -65,12 +68,13 @@ class InformesController:
         proyectos_dict = [proyecto.__dict__ for proyecto in proyectos]
         df = pd.DataFrame(proyectos_dict)
         df.columns = ['ID', 'Nombre', 'Descripción', 'Fecha Inicio']
-        df.to_excel('informe_proyectos.xlsx', index=False)
-        print("Informe de proyectos generado exitosamente en 'informe_proyectos.xlsx'.")
+        df.to_excel(archivo, index=False)
 
-    def generar_informe_registros_tiempo(self):
+    def generar_informe_registros_tiempo(self, archivo: str):
         """
         Genera un informe de registros de tiempo en formato Excel.
+        Args:
+            archivo (str): Ruta del archivo donde se guardará el informe.
         """
         registros = self.registro_tiempo_controller.listar_registros()
         if not registros:
@@ -80,6 +84,4 @@ class InformesController:
         registros_dict = [registro.__dict__ for registro in registros]
         df = pd.DataFrame(registros_dict)
         df.columns = ['ID', 'Fecha', 'Horas Trabajadas', 'Descripción', 'Empleado ID']
-        df.to_excel('informe_registros_tiempo.xlsx', index=False)
-        # pylint: disable=line-too-long
-        print("Informe de registros de tiempo generado exitosamente en 'informe_registros_tiempo.xlsx'.")
+        df.to_excel(archivo, index=False)

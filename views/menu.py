@@ -1,71 +1,85 @@
 """
 Módulo para gestionar la visualización de los menús en la aplicación.
 """
+from colorama import Fore, Style
+
+def menu_inicial():
+    """
+    Muestra el menú inicial de la aplicación.
+    """
+    print(f"{Fore.CYAN}{Style.BRIGHT}\nBienvenido al Sistema de Gestión de Proyectos")
+    print(f"{Fore.YELLOW}1.{Fore.GREEN} Iniciar Sesión")
+    print(f"{Fore.YELLOW}2.{Fore.GREEN} Registrarse")
+    print(f"{Fore.YELLOW}3.{Fore.RED} Salir\n")
 
 def menu_principal():
     """
     Muestra el menú principal de la aplicación.
     """
-    print("Menu Principal")
-    print("1. Registro de Empleados")
-    print("2. Gestión de Departamentos")
-    print("3. Gestión de Proyecto")
-    print("4. Registro de Tiempo")
-    print("5. Generar Informes")
-    print("6. Salir")
+    print(f"{Fore.CYAN}{Style.BRIGHT}Menu Principal{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}1.{Fore.GREEN} Registro de Empleados")
+    print(f"{Fore.YELLOW}2.{Fore.GREEN} Gestión de Departamentos")
+    print(f"{Fore.YELLOW}3.{Fore.GREEN} Gestión de Proyecto")
+    print(f"{Fore.YELLOW}4.{Fore.GREEN} Registro de Tiempo")
+    print(f"{Fore.YELLOW}5.{Fore.GREEN} Generar Informes")
+    print(f"{Fore.YELLOW}6.{Fore.GREEN} Salir")
 
 def menu_empleado():
     """
     Muestra el menú para la gestión de empleados.
     """
-    print("\n1.1 Crear Empleado")
-    print("1.2 Listar Empleado")
-    print("1.3 Buscar Empleado")
-    print("1.4 Modificar Empleado")
-    print("1.5 Eliminar Empleado")
-    print("1.6 Volver al menú Principal")
+    print(f"{Fore.CYAN}{Style.BRIGHT}\n1. Gestión de Empleados{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}1.1.{Fore.GREEN} Crear Empleado")
+    print(f"{Fore.YELLOW}1.2.{Fore.GREEN} Listar Empleado")
+    print(f"{Fore.YELLOW}1.3.{Fore.GREEN} Buscar Empleado")
+    print(f"{Fore.YELLOW}1.4.{Fore.GREEN} Modificar Empleado")
+    print(f"{Fore.YELLOW}1.5.{Fore.GREEN} Eliminar Empleado")
+    print(f"{Fore.YELLOW}1.6.{Fore.GREEN} Volver al menú Principal")
 
 def menu_departamento():
     """
     Muestra el menú para la gestión de departamentos.
     """
-    print("\n2.1 Crear Departamento")
-    print("2.2 Listar Departamentos")
-    print("2.3 Buscar Departamento")
-    print("2.4 Modificar Departamento")
-    print("2.5 Eliminar Departamento")
-    print("2.6 Volver al menú Principal")
+    print(f"{Fore.CYAN}{Style.BRIGHT}\n2. Gestión de Departamentos{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}2.1.{Fore.GREEN} Crear Departamento")
+    print(f"{Fore.YELLOW}2.2.{Fore.GREEN} Listar Departamentos")
+    print(f"{Fore.YELLOW}2.3.{Fore.GREEN} Buscar Departamento")
+    print(f"{Fore.YELLOW}2.4.{Fore.GREEN} Modificar Departamento")
+    print(f"{Fore.YELLOW}2.5.{Fore.GREEN} Eliminar Departamento")
+    print(f"{Fore.YELLOW}2.6.{Fore.GREEN} Volver al menú Principal")
 
 def menu_proyecto():
     """
     Muestra el menú para la gestión de proyectos.
     """
-    print("\n3.1 Crear Proyecto")
-    print("3.2 Listar Proyecto")
-    print("3.3 Buscar Proyecto")
-    print("3.4 Modificar Proyecto")
-    print("3.5 Eliminar Proyecto")
-    print("3.6 Volver al menú Principal")
+    print(f"{Fore.CYAN}{Style.BRIGHT}\n3. Gestión de Proyectos{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}3.1.{Fore.GREEN} Crear Proyecto")
+    print(f"{Fore.YELLOW}3.2.{Fore.GREEN} Listar Proyecto")
+    print(f"{Fore.YELLOW}3.3.{Fore.GREEN} Buscar Proyecto")
+    print(f"{Fore.YELLOW}3.4.{Fore.GREEN} Modificar Proyecto")
+    print(f"{Fore.YELLOW}3.5.{Fore.GREEN} Eliminar Proyecto")
+    print(f"{Fore.YELLOW}3.6.{Fore.GREEN} Volver al menú Principal")
     
 def menu_registrodetiempo():
     """
     Muestra el menú para la gestión de registros de tiempo.
     """
-    print("\n4.1 Crear Registro de tiempo")
-    print("4.2 Listar Registro de tiempo")
-    print("4.3 Buscar Registro de tiempo")
-    print("4.4 Modificar Registro de tiempo")
-    print("4.5 Eliminar Registro de tiempo")
-    print("4.6 Volver al menú Principal")
+    print(f"{Fore.CYAN}{Style.BRIGHT}\n4. Registro de Tiempo{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}4.1.{Fore.GREEN} Crear Registro de tiempo")
+    print(f"{Fore.YELLOW}4.2.{Fore.GREEN} Listar Registro de tiempo")
+    print(f"{Fore.YELLOW}4.3.{Fore.GREEN} Buscar Registro de tiempo")
+    print(f"{Fore.YELLOW}4.4.{Fore.GREEN} Modificar Registro de tiempo")
+    print(f"{Fore.YELLOW}4.5.{Fore.GREEN} Eliminar Registro de tiempo")
+    print(f"{Fore.YELLOW}4.6.{Fore.GREEN} Volver al menú Principal")
     
 def menu_informes():
     """
     Muestra el menú para la generación de informes.
     """
-    print("\nMenú de Generación de Informes")
-    print("5.1 Informe de Empleados (Excel)")
-    print("5.2 Informe de Departamentos (Excel)")
-    print("5.3 Informe de Proyectos (Excel)")
-    print("5.4 Informe de Registros de Tiempo (Excel)")
-    print("5.5 Informe de Empleados (PDF)")
-    print("5.6 Volver al menú Principal")
+    print(f"{Fore.CYAN}{Style.BRIGHT}\n5. Generación de Informes{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}5.1.{Fore.GREEN} Informe de Empleados (Excel)")
+    print(f"{Fore.YELLOW}5.2.{Fore.GREEN} Informe de Departamentos (Excel)")
+    print(f"{Fore.YELLOW}5.3.{Fore.GREEN} Informe de Proyectos (Excel)")
+    print(f"{Fore.YELLOW}5.4.{Fore.GREEN} Informe de Registros de Tiempo (Excel)")
+    print(f"{Fore.YELLOW}5.5.{Fore.GREEN} Informe de Empleados (PDF)")
+    print(f"{Fore.YELLOW}5.6.{Fore.GREEN} Volver al menú Principal")

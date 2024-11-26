@@ -36,8 +36,12 @@ class DepartamentoController:
                     query = "INSERT INTO departamento (nombre, gerente_id) VALUES (%s, %s)"
                     cursor.execute(query, (departamento.nombre, departamento.gerente_id))
                     connection.commit()
+                    print("Departamento creado exitosamente.")
         except Error as e:
-            print(f"Error al crear departamento: {e}")
+            if "FOREIGN KEY" in str(e):
+                print(f"Error: El gerente con ID {departamento.gerente_id} no existe.")
+            else:
+                print(f"Error al crear departamento: {e}")
 
     def listar_departamentos(self):
         """
@@ -94,13 +98,11 @@ class DepartamentoController:
         los campos proporcionados por el usuario, manteniendo los valores actuales para los demás.
         
         Args:
-            departamento (Departamento): Objeto Departamento con los datos a modificar. 
-                Los valores en None se conservan.
+            departamento (Departamento): Objeto Departamento con los datos a modificar.
         """
         try:
             with self.conectar() as connection:
                 with connection.cursor(dictionary=True) as cursor:
-                    # Obtener los valores actuales del departamento
                     query_select = "SELECT * FROM departamento WHERE departamento_id = %s"
                     cursor.execute(query_select, (departamento.departamento_id,))
                     row = cursor.fetchone()
@@ -109,12 +111,9 @@ class DepartamentoController:
                         print(f"El departamento con ID {departamento.departamento_id} no existe.")
                         return
 
-                    # Combinar los datos existentes con los nuevos (los campos en None se conservan)
                     nombre = departamento.nombre or row["nombre"]
-                    # pylint: disable=line-too-long
                     gerente_id = departamento.gerente_id if departamento.gerente_id is not None else row["gerente_id"]
 
-                    # Actualizar el departamento
                     query_update = """
                     UPDATE departamento 
                     SET nombre = %s, gerente_id = %s 
@@ -122,7 +121,6 @@ class DepartamentoController:
                     """
                     cursor.execute(query_update, (nombre, gerente_id, departamento.departamento_id))
                     connection.commit()
-                    # pylint: disable=line-too-long
                     print(f"Departamento con ID {departamento.departamento_id} actualizado exitosamente.")
         except Error as e:
             print(f"Error al modificar departamento: {e}")
@@ -139,5 +137,6 @@ class DepartamentoController:
                     query = "DELETE FROM departamento WHERE departamento_id = %s"
                     cursor.execute(query, (departamento_id,))
                     connection.commit()
+                    print("Departamento eliminado exitosamente.")
         except Error as e:
             print(f"Error al eliminar departamento: {e}")
