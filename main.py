@@ -79,9 +79,9 @@ def main():
             elif opcion == "4":
                 manejar_menu_registro()
             elif opcion == "5":
-                manejar_menu_informes()  # Sin restricción de rol
+                manejar_menu_informes()  
             elif opcion == "6":
-                manejar_menu_indicadores(usuario_actual.usuario_id)  # Pasar usuario_id correctamente
+                manejar_menu_indicadores(usuario_actual.usuario_id)  
             elif opcion == "7":
                 print(f"{Fore.RED}Saliendo del sistema...{Style.RESET_ALL}")
                 break
