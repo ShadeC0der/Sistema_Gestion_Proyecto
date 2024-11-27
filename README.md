@@ -112,7 +112,18 @@ CREATE INDEX idx_registro_empleado ON registro_de_tiempo(empleado_id);
 CREATE TABLE usuarios (
     usuario_id INT PRIMARY KEY AUTO_INCREMENT,
     nombre_usuario VARCHAR(50) UNIQUE NOT NULL,
-    contraseña_hash VARCHAR(255) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
     rol ENUM('admin', 'empleado') DEFAULT 'empleado' NOT NULL
 );
+
+CREATE TABLE registro_indicadores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_indicador VARCHAR(50) NOT NULL,
+    fecha_valor DATE NOT NULL,
+    valor DECIMAL(10, 2) NOT NULL,
+    fecha_consulta DATETIME NOT NULL,
+    usuario_id INT NOT NULL,
+    url_fuente VARCHAR(255) NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
