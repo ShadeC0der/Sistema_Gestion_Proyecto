@@ -66,10 +66,10 @@ class UsuarioController:
             password (str): Contraseña en texto plano.
 
         Returns:
-            dict: Un diccionario con el estado de autenticación y el rol del usuario.
+            dict: Un diccionario con el estado de autenticación y el usuario.
         """
         connection = self.conectar()
-        cursor = connection.cursor()
+        cursor = connection.cursor(dictionary=True)  # Usar cursor con diccionarios
         query = """
             SELECT usuario_id, password_hash, rol FROM usuarios
             WHERE nombre_usuario = %s
@@ -78,9 +78,12 @@ class UsuarioController:
             cursor.execute(query, (nombre_usuario,))
             resultado = cursor.fetchone()
             if resultado:
-                usuario_id, password_hash, rol = resultado
+                usuario_id = resultado['usuario_id']
+                password_hash = resultado['password_hash']
+                rol = resultado['rol']
                 if bcrypt.checkpw(password.encode("utf-8"), password_hash.encode("utf-8")):
-                    return {"autenticado": True, "usuario": Usuario(usuario_id, nombre_usuario, password_hash, rol)}
+                    usuario = Usuario(usuario_id, nombre_usuario, password_hash, rol)
+                    return {"autenticado": True, "usuario": usuario}
             return {"autenticado": False}
         except mysql.connector.Error as err:
             print(f"Error durante la autenticación: {err}")
